@@ -96,7 +96,7 @@ class PluginExpiringcc extends ServicePlugin
                 $strMessageArr[$mailType] = str_replace("[CLIENTNAME]", $objUser->getFullName(), $strMessageArr[$mailType]);
                 $strMessageArr[$mailType] = str_replace("[FIRSTNAME]", $objUser->getFirstName(), $strMessageArr[$mailType]);
                 $strMessageArr[$mailType] = str_replace("[CLIENTEMAIL]", $objUser->getEmail(), $strMessageArr[$mailType]);
-                $strMessageArr[$mailType] = str_replace(array("[FORGOTPASSWORDURL]","%5BFORGOTPASSWORDURL%5D"), CE_Lib::getSoftwareURL()."/index.php?fuse=admin&action=Logout", $strMessageArr[$mailType]);
+                $strMessageArr[$mailType] = str_replace(array("[FORGOTPASSWORDURL]","%5BFORGOTPASSWORDURL%5D"), CE_Lib::getForgotUrl(), $strMessageArr[$mailType]);
                 $strMessageArr[$mailType] = str_replace("[CCLASTFOUR]", $objUser->getCCLastFour(), $strMessageArr[$mailType]);
                 $strMessageArr[$mailType] = str_replace("[CCEXPDATE]", $objUser->getCCMonth()."/".$objUser->getCCYear(), $strMessageArr[$mailType]);
                 $strMessageArr[$mailType] = CE_Lib::ReplaceCustomFields($this->db, $strMessageArr[$mailType],$userid, $this->settings->get('Date Format'));
@@ -110,7 +110,7 @@ class PluginExpiringcc extends ServicePlugin
             $strSubjectMessage = str_replace("[CLIENTNAME]", $objUser->getFullName(), $strSubjectMessage);
             $strSubjectMessage = str_replace("[FIRSTNAME]", $objUser->getFirstName(), $strSubjectMessage);
             $strSubjectMessage = str_replace("[CLIENTEMAIL]", $objUser->getEmail(), $strSubjectMessage);
-            $strSubjectMessage = str_replace(array("[FORGOTPASSWORDURL]","%5BFORGOTPASSWORDURL%5D"), CE_Lib::getSoftwareURL()."/index.php?fuse=admin&action=Logout", $strSubjectMessage);
+            $strSubjectMessage = str_replace(array("[FORGOTPASSWORDURL]","%5BFORGOTPASSWORDURL%5D"), CE_Lib::getForgotUrl(), $strSubjectMessage);
             $strSubjectMessage = str_replace("[CCLASTFOUR]", $objUser->getCCLastFour(), $strSubjectMessage);
             $strSubjectMessage = str_replace("[CCEXPDATE]", $objUser->getCCMonth()."/".$objUser->getCCYear(), $strSubjectMessage);
 
