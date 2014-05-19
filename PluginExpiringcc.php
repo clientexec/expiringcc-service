@@ -86,21 +86,19 @@ class PluginExpiringcc extends ServicePlugin
         $mailGateway = new NE_MailGateway();
         foreach ($arrExpiringCCwithActiveBilling as $userid) {
             $objUser = new User($userid);
-            $strMessageArr = $template->getContents(true);
+            $strMessageArr = $template->getContents();
 
-            foreach ($strMessageArr as $mailType => $trash) {
-                $strMessageArr[$mailType] = str_replace("[BILLINGEMAIL]", $this->settings->get("Billing E-mail"), $strMessageArr[$mailType]);
-                $strMessageArr[$mailType] = str_replace(array("[CLIENTAPPLICATIONURL]","%5BCLIENTAPPLICATIONURL%5D"), CE_Lib::getSoftwareURL(), $strMessageArr[$mailType]);
-                $strMessageArr[$mailType] = str_replace(array("[COMPANYNAME]","%5BCOMPANYNAME%5D"), $this->settings->get("Company Name"), $strMessageArr[$mailType]);
-                $strMessageArr[$mailType] = str_replace(array("[COMPANYADDRESS]","%5BCOMPANYADDRESS%5D"), $this->settings->get("Company Address"), $strMessageArr[$mailType]);
-                $strMessageArr[$mailType] = str_replace("[CLIENTNAME]", $objUser->getFullName(), $strMessageArr[$mailType]);
-                $strMessageArr[$mailType] = str_replace("[FIRSTNAME]", $objUser->getFirstName(), $strMessageArr[$mailType]);
-                $strMessageArr[$mailType] = str_replace("[CLIENTEMAIL]", $objUser->getEmail(), $strMessageArr[$mailType]);
-                $strMessageArr[$mailType] = str_replace(array("[FORGOTPASSWORDURL]","%5BFORGOTPASSWORDURL%5D"), CE_Lib::getForgotUrl(), $strMessageArr[$mailType]);
-                $strMessageArr[$mailType] = str_replace("[CCLASTFOUR]", $objUser->getCCLastFour(), $strMessageArr[$mailType]);
-                $strMessageArr[$mailType] = str_replace("[CCEXPDATE]", $objUser->getCCMonth()."/".$objUser->getCCYear(), $strMessageArr[$mailType]);
-                $strMessageArr[$mailType] = CE_Lib::ReplaceCustomFields($this->db, $strMessageArr[$mailType],$userid, $this->settings->get('Date Format'));
-            }
+            $strMessageArr = str_replace("[BILLINGEMAIL]", $this->settings->get("Billing E-mail"), $strMessageArr);
+            $strMessageArr = str_replace(array("[CLIENTAPPLICATIONURL]","%5BCLIENTAPPLICATIONURL%5D"), CE_Lib::getSoftwareURL(), $strMessageArr);
+            $strMessageArr = str_replace(array("[COMPANYNAME]","%5BCOMPANYNAME%5D"), $this->settings->get("Company Name"), $strMessageArr);
+            $strMessageArr = str_replace(array("[COMPANYADDRESS]","%5BCOMPANYADDRESS%5D"), $this->settings->get("Company Address"), $strMessageArr);
+            $strMessageArr = str_replace("[CLIENTNAME]", $objUser->getFullName(), $strMessageArr);
+            $strMessageArr = str_replace("[FIRSTNAME]", $objUser->getFirstName(), $strMessageArr);
+            $strMessageArr = str_replace("[CLIENTEMAIL]", $objUser->getEmail(), $strMessageArr);
+            $strMessageArr = str_replace(array("[FORGOTPASSWORDURL]","%5BFORGOTPASSWORDURL%5D"), CE_Lib::getForgotUrl(), $strMessageArr);
+            $strMessageArr = str_replace("[CCLASTFOUR]", $objUser->getCCLastFour(), $strMessageArr);
+            $strMessageArr = str_replace("[CCEXPDATE]", $objUser->getCCMonth()."/".$objUser->getCCYear(), $strMessageArr);
+            $strMessageArr = CE_Lib::ReplaceCustomFields($this->db, $strMessageArr,$userid, $this->settings->get('Date Format'));
 
             $strSubjectMessage = $template->getSubject();
             $strSubjectMessage = str_replace("[BILLINGEMAIL]", $this->settings->get("Billing E-mail"), $strSubjectMessage);
@@ -125,7 +123,7 @@ class PluginExpiringcc extends ServicePlugin
                                                         'notifications',
                                                         '',
                                                         '',
-                                                        $objUser->isHTMLMails()? MAILGATEWAY_CONTENTTYPE_HTML : MAILGATEWAY_CONTENTTYPE_PLAINTEXT);
+                                                        MAILGATEWAY_CONTENTTYPE_HTML);
             if (!is_a($mailerResult, 'CE_Error')) {
                 $clientLog = Client_EventLog::newInstance(false, $userid, $userid, CLIENT_EVENTLOG_SENTCCEXPIRATIONEMAIL, $this->user->getId());
                 $clientLog->save();
