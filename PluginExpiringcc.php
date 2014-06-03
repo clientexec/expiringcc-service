@@ -16,50 +16,50 @@ class PluginExpiringcc extends ServicePlugin
     function getVariables()
     {
         $variables = array(
-            /*T*/'Plugin Name'/*/T*/   => array(
+            lang('Plugin Name')   => array(
                 'type'          => 'hidden',
-                'description'   => /*T*/''/*/T*/,
-                'value'         => /*T*/'Expiring CC Notifier'/*/T*/,
+                'description'   => '',
+                'value'         => lang('Expiring CC Notifier'),
             ),
-            /*T*/'Enabled'/*/T*/       => array(
+            lang('Enabled')       => array(
                 'type'          => 'yesno',
-                'description'   => /*T*/'When enabled, notify customers with expiring cards at the end of the month.  When run it will E-mail customers with a credit card expiring that month and generate a ticket for credit cards expired in the previous month.<br><b>NOTE:</b> This service is intended to run only once per month.'/*/T*/,
+                'description'   => lang('When enabled, notify customers with expiring cards at the end of the month.  When run it will E-mail customers with a credit card expiring that month and generate a ticket for credit cards expired in the previous month.<br><b>NOTE:</b> This service is intended to run only once per month.'),
                 'value'         => '0',
             ),
-            /*T*/'Delete Expired CC'/*/T*/ => array(
+            lang('Delete Expired CC') => array(
                 'type'          => 'yesno',
-                'description'   => /*T*/'Delete expired credit card if there are no recurring charges and no unpaid invoices.'/*/T*/,
+                'description'   => lang('Delete expired credit card if there are no recurring charges and no unpaid invoices.'),
                 'value'         => '0',
             ),
-            /*T*/'Generate Ticket Upon Expiration'/*/T*/ => array(
+            lang('Generate Ticket Upon Expiration') => array(
                 'type'          => 'yesno',
-                'description'   => /*T*/'Generates a ticket in the customers account when their credit card expires.  Useful for allowing administrators to follow up on the expired credit card.'/*/T*/,
+                'description'   => lang('Generates a ticket in the customers account when their credit card expires.  Useful for allowing administrators to follow up on the expired credit card.'),
                 'value'         => '1',
             ),
-            /*T*/'Run schedule - Minute'/*/T*/  => array(
+            lang('Run schedule - Minute')  => array(
                 'type'          => 'text',
-                'description'   => /*T*/'Enter number, range, list or steps'/*/T*/,
+                'description'   => lang('Enter number, range, list or steps'),
                 'value'         => '0',
                 'helpid'        => '8',
             ),
-            /*T*/'Run schedule - Hour'/*/T*/  => array(
+            lang('Run schedule - Hour')  => array(
                 'type'          => 'text',
-                'description'   => /*T*/'Enter number, range, list or steps'/*/T*/,
+                'description'   => lang('Enter number, range, list or steps'),
                 'value'         => '0',
             ),
-            /*T*/'Run schedule - Day'/*/T*/  => array(
+            lang('Run schedule - Day')  => array(
                 'type'          => 'text',
-                'description'   => /*T*/'Enter number, range, list or steps'/*/T*/,
+                'description'   => lang('Enter number, range, list or steps'),
                 'value'         => '1',
             ),
-            /*T*/'Run schedule - Month'/*/T*/  => array(
+            lang('Run schedule - Month')  => array(
                 'type'          => 'text',
-                'description'   => /*T*/'Enter number, range, list or steps'/*/T*/,
+                'description'   => lang('Enter number, range, list or steps'),
                 'value'         => '*',
             ),
-            /*T*/'Run schedule - Day of the week'/*/T*/  => array(
+            lang('Run schedule - Day of the week')  => array(
                 'type'          => 'text',
-                'description'   => /*T*/'Enter number in range 0-6 (0 is Sunday) or a 3 letter shortcut (e.g. sun)'/*/T*/,
+                'description'   => lang('Enter number in range 0-6 (0 is Sunday) or a 3 letter shortcut (e.g. sun)'),
                 'value'         => '*',
             ),
         );
