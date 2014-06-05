@@ -12,6 +12,7 @@ class PluginExpiringcc extends ServicePlugin
 {
     protected $featureSet = 'billing';
     public $hasPendingItems = false;
+    public $permission = 'billing_view';
 
     function getVariables()
     {
