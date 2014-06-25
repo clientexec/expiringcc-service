@@ -2,6 +2,7 @@
 
 require_once 'modules/billing/models/Invoice.php';
 require_once 'modules/admin/models/ServicePlugin.php';
+require_once 'modules/admin/models/StatusAliasGateway.php' ;
 require_once 'modules/clients/models/Client_EventLog.php';
 require_once 'modules/support/models/AutoresponderTemplateGateway.php';
 
@@ -284,13 +285,14 @@ class PluginExpiringcc extends ServicePlugin
 
         $arrIds = array();
 
+        $userActiveStatuses = StatusAliasGateway::userActiveAliases($this->user);
         $query = "SELECT DISTINCT u.`id` "
                 ."FROM `users` u "
                 ."LEFT JOIN `recurringfee` r "
                 ."ON r.`customerid` = u.`id` "
                 ."LEFT JOIN `invoice` i "
                 ."ON i.`customerid` = u.`id` "
-                ."WHERE u.`status`='1' "
+                ."WHERE u.`status` IN (".implode(', ', $userActiveStatuses).") "
                 .$where
                 ."AND u.`passphrased`='1' "
                 ."AND (u.`data1` != '' OR u.`data3` != '') "
