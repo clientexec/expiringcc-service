@@ -89,6 +89,20 @@ class PluginExpiringcc extends ServicePlugin
         foreach ($arrExpiringCCwithActiveBilling as $userid) {
             $objUser = new User($userid);
             $strMessageArr = $template->getContents();
+            $strSubjectMessage = $template->getSubject();
+
+            $templateID = $template->getId();
+            if($templateID !== false){
+                include_once 'modules/admin/models/Translations.php';
+                $languages = CE_Lib::getEnabledLanguages();
+                $translations = new Translations();
+                $languageKey = ucfirst(strtolower($objUser->getRealLanguage()));
+
+                if(count($languages) > 1){
+                    $strSubjectMessage = $translations->getValue(EMAIL_SUBJECT, $templateID, $languageKey, $strSubjectMessage);
+                    $strMessageArr = $translations->getValue(EMAIL_CONTENT, $templateID, $languageKey, $strMessageArr);
+                }
+            }
 
             $strMessageArr = str_replace("[BILLINGEMAIL]", $this->settings->get("Billing E-mail"), $strMessageArr);
             $strMessageArr = str_replace(array("[CLIENTAPPLICATIONURL]","%5BCLIENTAPPLICATIONURL%5D"), CE_Lib::getSoftwareURL(), $strMessageArr);
@@ -102,7 +116,6 @@ class PluginExpiringcc extends ServicePlugin
             $strMessageArr = str_replace("[CCEXPDATE]", $objUser->getCCMonth()."/".$objUser->getCCYear(), $strMessageArr);
             $strMessageArr = CE_Lib::ReplaceCustomFields($this->db, $strMessageArr,$userid, $this->settings->get('Date Format'));
 
-            $strSubjectMessage = $template->getSubject();
             $strSubjectMessage = str_replace("[BILLINGEMAIL]", $this->settings->get("Billing E-mail"), $strSubjectMessage);
             $strSubjectMessage = str_replace(array("[CLIENTAPPLICATIONURL]","%5BCLIENTAPPLICATIONURL%5D"), CE_Lib::getSoftwareURL(), $strSubjectMessage);
             $strSubjectMessage = str_replace(array("[COMPANYNAME]","%5BCOMPANYNAME%5D"), $this->settings->get("Company Name"), $strSubjectMessage);
