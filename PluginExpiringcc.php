@@ -108,7 +108,7 @@ class PluginExpiringcc extends ServicePlugin
             $strMessageArr = str_replace(array("[CLIENTAPPLICATIONURL]","%5BCLIENTAPPLICATIONURL%5D"), CE_Lib::getSoftwareURL(), $strMessageArr);
             $strMessageArr = str_replace(array("[COMPANYNAME]","%5BCOMPANYNAME%5D"), $this->settings->get("Company Name"), $strMessageArr);
             $strMessageArr = str_replace(array("[COMPANYADDRESS]","%5BCOMPANYADDRESS%5D"), $this->settings->get("Company Address"), $strMessageArr);
-            $strMessageArr = str_replace("[CLIENTNAME]", $objUser->getFullName(), $strMessageArr);
+            $strMessageArr = str_replace("[CLIENTNAME]", $objUser->getFullName(true), $strMessageArr);
             $strMessageArr = str_replace("[FIRSTNAME]", $objUser->getFirstName(), $strMessageArr);
             $strMessageArr = str_replace("[CLIENTEMAIL]", $objUser->getEmail(), $strMessageArr);
             $strMessageArr = str_replace(array("[FORGOTPASSWORDURL]","%5BFORGOTPASSWORDURL%5D"), CE_Lib::getForgotUrl(), $strMessageArr);
@@ -120,7 +120,7 @@ class PluginExpiringcc extends ServicePlugin
             $strSubjectMessage = str_replace(array("[CLIENTAPPLICATIONURL]","%5BCLIENTAPPLICATIONURL%5D"), CE_Lib::getSoftwareURL(), $strSubjectMessage);
             $strSubjectMessage = str_replace(array("[COMPANYNAME]","%5BCOMPANYNAME%5D"), $this->settings->get("Company Name"), $strSubjectMessage);
             $strSubjectMessage = str_replace(array("[COMPANYADDRESS]","%5BCOMPANYADDRESS%5D"), $this->settings->get("Company Address"), $strSubjectMessage);
-            $strSubjectMessage = str_replace("[CLIENTNAME]", $objUser->getFullName(), $strSubjectMessage);
+            $strSubjectMessage = str_replace("[CLIENTNAME]", $objUser->getFullName(true), $strSubjectMessage);
             $strSubjectMessage = str_replace("[FIRSTNAME]", $objUser->getFirstName(), $strSubjectMessage);
             $strSubjectMessage = str_replace("[CLIENTEMAIL]", $objUser->getEmail(), $strSubjectMessage);
             $strSubjectMessage = str_replace(array("[FORGOTPASSWORDURL]","%5BFORGOTPASSWORDURL%5D"), CE_Lib::getForgotUrl(), $strSubjectMessage);
