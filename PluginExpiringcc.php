@@ -97,6 +97,7 @@ class PluginExpiringcc extends ServicePlugin
                 $languages = CE_Lib::getEnabledLanguages();
                 $translations = new Translations();
                 $languageKey = ucfirst(strtolower($objUser->getRealLanguage()));
+                CE_Lib::setI18n($languageKey);
 
                 if(count($languages) > 1){
                     $strSubjectMessage = $translations->getValue(EMAIL_SUBJECT, $templateID, $languageKey, $strSubjectMessage);
